@@ -1,0 +1,45 @@
+# Service role for the application, used only for this challenge, is NOT secure
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template to create IAM roles.
+Parameters:
+  SourceAccountId:
+    Type: String
+    MaxLength: 12
+    MinLength: 12
+    Description: 12 digit id of the granted access account account
+Resources:
+  RootRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: "timeoff-mgm-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              "AWS": !Join [ "", [ "arn:aws:iam::", !Ref SourceAccountId, ":root" ] ]
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+  RolePolicies:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: "timeoff-mgm-policy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Action: "*"
+            Resource: "*"
+      Roles:
+        -
+          Ref: "RootRole"
+Outputs:
+  RoleArn:
+    Description: AWS Resource for IAM Role of the Application
+    Value: !GetAtt RootRole.Arn
+    Export:
+      Name: timeoff-mgm-role
