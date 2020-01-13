@@ -4,40 +4,19 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Deploy ECR repositories for Timeoff Project - Released 2020-01-12'
 
 Resources:
-  ECRTIMEOFF:
+  Repository:
     Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
     Properties:
       RepositoryName: "applications/timeoff-management"
-      RepositoryPolicyText:
-        Version: "2012-10-17"
-        Statement:
-          -
-            Sid: AllowPushPull
-            Effect: Allow
-            Principal:
-              AWS:
-                Fn::ImportValue: 'timeoff-mgm-role'
-            Action:
-              - "ecr:GetDownloadUrlForLayer"
-              - "ecr:BatchGetImage"
-              - "ecr:BatchCheckLayerAvailability"
-              - "ecr:PutImage"
-              - "ecr:InitiateLayerUpload"
-              - "ecr:UploadLayerPart"
-              - "ecr:CompleteLayerUpload"
-              - "ecr:DescribeImages"
-              - "ecr:DescribeRepositories"
-              - "ecr:GetDownloadUrlForLayer"
-              - "ecr:GetLifecyclePolicy"
-              - "ecr:GetLifecyclePolicyPreview"
-              - "ecr:GetRepositoryPolicy"
-              - "ecr:ListImages"
 
 Outputs:
 
-  ECRTIMEOFF:
-    Description:  ECR TIMEOFF REPOSITORY
-    Value: !Ref ECRTIMEOFF
+  EcrRepositoryId:
+    Description: AWS Resource for ECR repository
+    Value: !GetAtt Repository.Arn
+    Export:
+      Name: ecr-repository-timeoff-management
   TemplateVersion:
     Value: "0.1.0"
 
