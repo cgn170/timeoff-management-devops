@@ -120,19 +120,23 @@ Resources:
                 - echo Logging in to Amazon ECR...
                 - aws --version
                 - $(aws ecr get-login --no-include-email)
-                - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-                - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+                - REPOSITORY_URI=207298312288.dkr.ecr.us-east-1.amazonaws.com/applications/timeoff-management
+                - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+                - IMAGE_TAG=${COMMIT_HASH:=latest}
             build:
               commands:
                 - echo Build started on `date`
                 - echo Building the Docker image...
-                - docker build --tag "$IMAGE_URI" .
+                - docker build -t $REPOSITORY_URI:latest .
+                - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
             post_build:
               commands:
                 - echo Build completed on `date`
                 - echo Pushing the Docker images...
-                - docker push "$IMAGE_URI"
-                - printf '[{"name":"timeoff-management","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+                - docker push $REPOSITORY_URI:latest
+                - docker push $REPOSITORY_URI:$IMAGE_TAG
+                - printf '[{"name":"timeoff-management","imageUri":"%s"}]' "$REPOSITORY_URI:$IMAGE_TAG" > images.json
+
           artifacts:
             files: images.json
       Environment:

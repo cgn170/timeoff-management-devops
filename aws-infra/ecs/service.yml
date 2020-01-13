@@ -97,9 +97,7 @@ Resources:
       ExecutionRoleArn: !Ref TaskExecutionRole
       ContainerDefinitions:
         - Name: timeoff-management
-          Image: amazon/amazon-ecs-sample
-          EntryPoint:
-            - npm start
+           Image:  bitnami/node-example:0.0.1
           Essential: true
           Memory: 256
           PortMappings:
