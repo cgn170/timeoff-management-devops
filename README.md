@@ -20,7 +20,7 @@ For the infrastructure I decided to use AWS, all the components and services can
 
 Cloud architecture working on progress:
 
-![Screenshot](images/Gorilla-Logic-Infra-cloud-Working_Progress.png) 
+![Screenshot](images/Gorilla-Logic-Infra-cloud-Progress.png) 
 
 
 ### Deploy Stack
