@@ -5,7 +5,7 @@ Simple demo of an AWS cloud infrastructure solution and CI/CD process for the de
 ## CI/CD Process Proposal
 I decided to use AWS Codepipeline for all the CI/CD process as the pipeline can be defined as code using cloudformation, also can be integrated with many AWS services.
  
-![Screenshot](images/Gorilla-Logic-CI_CD process_Proposal.png)
+![Screenshot](images/Gorilla-Logic-CI_CD-process_Proposal.png)
 
 
 ## Architecture Proposal
