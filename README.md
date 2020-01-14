@@ -19,6 +19,7 @@ For the infrastructure I decided to use AWS, all the components and services can
 - [ ] Cloud Infrastructure (Working on progress)
 
 Cloud architecture working on progress:
+
 ![Screenshot](images/Gorilla-Logic-Infra-cloud-Working_Progress.png) 
 
 
