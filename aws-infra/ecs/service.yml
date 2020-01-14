@@ -97,7 +97,7 @@ Resources:
       ExecutionRoleArn: !Ref TaskExecutionRole
       ContainerDefinitions:
         - Name: timeoff-management
-  -       Image:  bitnami/node-example:0.0.1
+          Image:  bitnami/node-example:0.0.1
           Essential: true
           Memory: 256
           PortMappings:
